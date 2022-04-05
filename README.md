@@ -1,4 +1,4 @@
-<h1 align="center">Exibição de exames clínicos em JSON originados de um arquivo CSV</h1>
+<h1 align="center">Exibição de exames em JSON originados de um arquivo CSV</h1>
 <p align="center"> Essa API popula o banco de dados por meio de um arquivo CSV e exibe os registros em JSON.</p>
 
 <div align='center' id="tecnologias">
