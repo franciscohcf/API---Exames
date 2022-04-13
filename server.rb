@@ -5,6 +5,6 @@ configure do
 	set bind: '0.0.0.0'
 end
 
-get '/tests/T9O6AI' do
+get '/tests' do
 	'Hello World!!'
 end
