@@ -1,7 +1,9 @@
 require 'csv'
 
 class Converter
-  def self.convert(data)
+  def self.convert(csv)
+    data = CSV.read(csv, col_sep: ';')
+
     data.shift
 
     columns = %w[cpf name email birthday street_address city_address state_address
