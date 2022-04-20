@@ -1,9 +1,12 @@
 require 'test/unit'
+require 'csv'
 require './converter.rb'
 
 class ConverterTest < Test::Unit::TestCase
   def test_converter
-    result = Converter.convert('result_tests.csv')
+    data = CSV.read('result_tests.csv', col_sep: ';')
+
+    result = Converter.convert(data)
 
     selected = result.find { |row| row['cpf'] == '086.183.708-86' }
 
