@@ -15,3 +15,11 @@ tests:
 		ruby \
 		bash -c "ruby tests.rb"
 
+install.gems:
+	@docker run \
+		-v $(CURDIR):/app \
+		-v rubygems_clinickr:/usr/local/bundle \
+		-w /app \
+		ruby \
+		bash -c "gem install sinatra puma byebug"
+

@@ -1,4 +1,5 @@
 require 'test/unit'
+require './converter.rb'
 
 class ConverterTest < Test::Unit::TestCase
   def test_converter
