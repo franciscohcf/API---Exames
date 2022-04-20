@@ -12,7 +12,7 @@ get '/tests/:token' do
 
   result = Converter.convert(data)
 
-  result = result.find { |row| row['result_token'] == params['token'] }
+  result = result.select { |row| row['result_token'] == params['token'] }
 
   result.to_json
 end
