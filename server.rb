@@ -6,5 +6,4 @@ configure do
 end
 
 get '/tests' do
-	'Hello World!!'
 end
