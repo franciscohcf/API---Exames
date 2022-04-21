@@ -11,7 +11,7 @@ ActiveRecord::Base.establish_connection(
 )
 
 class Seed
-  def to_db
+  def self.to_db(data)
     result = data
 
     result.each do |row|
