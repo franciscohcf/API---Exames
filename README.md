@@ -12,7 +12,7 @@
 <h2 id="project-setup">Setup do projeto</h2>
 
 ```bash
-$ 
+$ docker network create clinickr
 ```
 
 --------------
