@@ -1,5 +1,4 @@
 require 'sinatra'
-require 'csv'
 require './converter.rb'
 
 configure do
