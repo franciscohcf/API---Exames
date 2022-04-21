@@ -21,7 +21,7 @@ install.gems:
 		-v rubygems_clinickr:/usr/local/bundle \
 		-w /app \
 		ruby \
-		bash -c "gem install sinatra puma byebug pg"
+		bash -c "gem install sinatra puma byebug pg activerecord yaml"
 
 pg.server:
 	@docker run \
@@ -34,12 +34,26 @@ pg.server:
 	  --network clinickr \
 	  postgres
 
-db.import:
+psql:
+	@docker exec -it clinickpg bash -c "psql -U clinick clinickdb"
+
+db.migrate:
 	@docker run \
 		-v $(CURDIR):/app \
 		-v rubygems_clinickr:/usr/local/bundle \
 		-w /app \
 		--network clinickr \
 		ruby \
-		bash -c "ruby importer.rb"
+		bash -c "ruby db/migrate/migration_test_results.rb"
+
+
+irb:
+	@docker run \
+		-it \
+		-v $(CURDIR):/app \
+		-v rubygems_clinickr:/usr/local/bundle \
+		-w /app \
+		--network clinickr \
+		ruby \
+		bash -c "irb -r ./model/test_results"
 
