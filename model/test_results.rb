@@ -9,4 +9,5 @@ ActiveRecord::Base.establish_connection(
 )
 
 class TestResults < ActiveRecord::Base
+  validates :cpf, uniqueness: true
 end

@@ -4,6 +4,7 @@ server:
 		-v rubygems_clinickr:/usr/local/bundle \
 		-w /app \
 		-p 3000:3000 \
+		--network clinickr \
 		ruby \
 		bash -c "ruby server.rb -s puma"
 
