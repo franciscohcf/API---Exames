@@ -22,7 +22,7 @@ install.gems:
 		-v rubygems_clinickr:/usr/local/bundle \
 		-w /app \
 		ruby \
-		bash -c "gem install sinatra puma byebug pg activerecord yaml"
+		bash -c "gem install sinatra puma byebug pg activerecord"
 
 pg.server:
 	@docker run \
@@ -58,12 +58,4 @@ irb:
 		ruby \
 		bash -c "irb -r ./model/test_results"
 
-seed:
-	@docker run \
-		-v $(CURDIR):/app \
-		-v rubygems_clinickr:/usr/local/bundle \
-		-w /app \
-		--network clinickr \
-		ruby \
-		bash -c "ruby seed.rb"
 

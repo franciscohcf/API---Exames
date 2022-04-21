@@ -1,5 +1,8 @@
 require 'sinatra'
 require 'active_record'
+require './converter.rb'
+require './seed.rb'
+require './formater.rb'
 require './model/test_results.rb'
 
 configure do
@@ -15,31 +18,20 @@ ActiveRecord::Base.establish_connection(
   database: 'clinickdb'
 )
 
+get '/import/:filename' do
+  initial_time = Time.now
+
+  data = Converter.convert(params[:filename])
+
+  Seed.to_db(data)
+
+  "Done in #{Time.now - initial_time} seconds"
+end
+
 get '/tests/:token' do
   result = TestResults.where(result_token: params[:token])
 
-  result = result.each_with_object({}) do |result_test, acc|
-    acc['token'] = result_test['result_token']
-    acc['date'] = result_test['result_date']
-    acc['cpf'] = result_test['cpf']
-    acc['name'] = result_test['name']
-    acc['birthday'] = result_test['birthday']
-
-    acc['doctor'] = {
-      'name' => result_test['doctor_name'],
-      'crm' => result_test['doctor_crm'],
-      'crm_state' => result_test['doctor_crm_state']
-    }
-
-    acc['tests'] ||= []
-
-    acc['tests'] << {
-      'type' => result_test['test_type'],
-      'limits' => result_test['test_limits'],
-      'result' => result_test['result']
-    }
-  end
-
+  result = Formater.format(result)
   
   result.to_json
 end
