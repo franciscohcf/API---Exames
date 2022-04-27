@@ -52,6 +52,8 @@ GET /seed/result_tests
 
 --------------
 
+Visualizando exames do paciente específico
+
 Request:
 ```bash
 GET /tests/T9O6AI
