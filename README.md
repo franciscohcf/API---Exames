@@ -11,21 +11,53 @@
 
 <h2 id="project-setup">Setup do projeto</h2>
 
+Instalando as gems que serão utilizadas no projeto:
+
+```bash
+$ make install.gems
+```
+
+Criando a rede da aplicação:
+
 ```bash
 $ docker network create clinickr
+```
+
+Executando a migration:
+
+```bash
+$ make db.migrate
+```
+
+Subindo os servidores:
+
+
+```bash
+$ make pg.server
+$ make redis
+$ make sidekiq
+$ make server
 ```
 
 --------------
 
 <h2 id="api" align="left">API</h2>
 
+Para popular o banco de dados:
+
+Request:
+```bash
+GET /seed/result_tests
+```
+
+--------------
 
 Request:
 ```bash
 GET /tests/T9O6AI
 ```
 
-Response:
+Resposta:
 
 ```json
 {

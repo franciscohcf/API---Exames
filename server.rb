@@ -18,14 +18,10 @@ ActiveRecord::Base.establish_connection(
   database: 'clinickdb'
 )
 
-get '/import/:filename' do
-  initial_time = Time.now
-
+get '/seed/:filename' do
   data = Converter.convert(params[:filename])
 
   SeedJob.perform_async(data)
-
-  "Done in #{Time.now - initial_time} seconds"
 end
 
 get '/tests/:token' do
