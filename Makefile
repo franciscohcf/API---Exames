@@ -3,18 +3,11 @@ server:
 		-v $(CURDIR):/app \
 		-v rubygems_clinickr:/usr/local/bundle \
 		-w /app \
+		-e REDIS_URL=redis://redis:6379/0 \
 		-p 3000:3000 \
 		--network clinickr \
 		ruby \
 		bash -c "ruby server.rb -s puma"
-
-tests:
-	@docker run \
-		-v $(CURDIR):/app \
-		-v rubygems_clinickr:/usr/local/bundle \
-		-w /app \
-		ruby \
-		bash -c "ruby tests.rb"
 
 install.gems:
 	@docker run \
@@ -22,7 +15,7 @@ install.gems:
 		-v rubygems_clinickr:/usr/local/bundle \
 		-w /app \
 		ruby \
-		bash -c "gem install sinatra puma byebug pg activerecord"
+		bash -c "gem install sinatra puma pg activerecord redis sidekiq"
 
 pg.server:
 	@docker run \
@@ -57,5 +50,23 @@ irb:
 		--network clinickr \
 		ruby \
 		bash -c "irb -r ./model/test_results"
+
+redis:
+	@docker run \
+		--rm \
+		--name redis \
+		--network clinickr \
+		redis
+
+sidekiq:
+	@docker run \
+		-v $(CURDIR):/app \
+		-v rubygems_clinickr:/usr/local/bundle \
+		-w /app \
+		-e REDIS_URL=redis://redis:6379/0 \
+		--network clinickr \
+		ruby \
+		bash -c "sidekiq -r ./app/jobs/seed_job.rb"
+
 
 

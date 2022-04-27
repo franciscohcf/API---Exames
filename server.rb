@@ -1,8 +1,8 @@
 require 'sinatra'
 require 'active_record'
 require './converter.rb'
-require './seed.rb'
-require './formater.rb'
+require './app/jobs/seed_job.rb'
+require './app/services/formater.rb'
 require './model/test_results.rb'
 
 configure do
@@ -23,7 +23,7 @@ get '/import/:filename' do
 
   data = Converter.convert(params[:filename])
 
-  Seed.to_db(data)
+  SeedJob.perform_async(data)
 
   "Done in #{Time.now - initial_time} seconds"
 end
